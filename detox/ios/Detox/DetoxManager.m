@@ -432,6 +432,8 @@ static void detoxConditionalInit()
 	
 	if(props[@"recordingPath"] != nil)
 	{
+		dtx_log_debug(@"Got recordingPath: %@", props[@"recordingPath"]);
+		
 		NSURL* absoluteURL = [NSURL fileURLWithPath:props[@"recordingPath"]];
 		
 		static dispatch_once_t onceToken;
@@ -449,6 +451,8 @@ static void detoxConditionalInit()
 	}
 	else
 	{
+		dtx_log_debug(@"Got no recordingPath");
+		
 		completionBlocked = YES;
 		[_recordingManager stopRecordingWithCompletionHandler:^(NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
