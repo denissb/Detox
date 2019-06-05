@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const log = require('../../utils/logger').child({ __filename });
+const sleep = require('../../utils/sleep');
 const Artifact = require('../templates/artifact/Artifact');
 
 class SimulatorInstrumentsRecording extends Artifact {
@@ -22,6 +23,7 @@ class SimulatorInstrumentsRecording extends Artifact {
       return;
     }
 
+    await sleep(500);
     await this._client.startInstrumentsRecording({
       recordingPath: this.temporaryRecordingPath,
     });
