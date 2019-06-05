@@ -37,12 +37,13 @@ class SimulatorLogRecording extends Artifact {
         style: 'compact',
       }),
     };
+
+    await sleep(100);
   }
 
   async doStop() {
     if (this._logContext) {
       const { fileHandle, process } = this._logContext;
-      await sleep(500);
       await exec.interruptProcess(process, 'SIGTERM');
       await fs.close(fileHandle);
       this._logContext = null;
