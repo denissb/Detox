@@ -206,7 +206,7 @@ static BOOL __DTXDecryptFramework(NSURL* encryptedBinaryURL, NSURL* targetBinary
 	NSURL* documents = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 	NSURL* rv = [documents URLByAppendingPathComponent:[self _sanitizeFileNameString:testName]];
 	
-	dtx_log_debug(@"Returning %@ as URL", rv.path);
+	dtx_log_info(@"Returning %@ as URL", rv.path);
 	
 	return rv;
 }
@@ -286,11 +286,11 @@ static BOOL __DTXDecryptFramework(NSURL* encryptedBinaryURL, NSURL* targetBinary
 		}
 
 		NSURL* recordingURL = [[_recorderInstance profilingConfiguration] recordingFileURL];
-		dtx_log_debug(@"🤡 Start of %@", [recordingURL URLByDeletingLastPathComponent]);
+		dtx_log_info(@"🤡 Start of %@", [recordingURL URLByDeletingLastPathComponent]);
 		[[NSFileManager.defaultManager contentsOfDirectoryAtURL:[recordingURL URLByDeletingLastPathComponent] includingPropertiesForKeys:nil options:0 error:NULL] enumerateObjectsUsingBlock:^(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-			dtx_log_debug(@"🤡 %@", obj);
+			dtx_log_info(@"🤡 %@", obj);
 		}];
-		dtx_log_debug(@"🤡 End of");
+		dtx_log_info(@"🤡 End of");
 		
 		if(completionHandler != nil)
 		{
