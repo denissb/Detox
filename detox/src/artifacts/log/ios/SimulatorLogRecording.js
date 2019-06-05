@@ -31,7 +31,7 @@ class SimulatorLogRecording extends Artifact {
       fileHandle,
       process: this._appleSimUtils.logStream({
         udid: this._udid,
-        processImagePath: await this._getProcessImagePath(),
+        // processImagePath: await this._getProcessImagePath(),
         stdout: fileHandle,
         level: 'debug',
         style: 'compact',
