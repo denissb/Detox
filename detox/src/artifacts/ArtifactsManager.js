@@ -89,6 +89,10 @@ class ArtifactsManager {
 
   async onBootDevice(deviceInfo) {
     await this._callPlugins('onBootDevice', deviceInfo);
+
+    if (!this._beforeAllCalled) {
+      await this.onBeforeAll();
+    }
   }
 
   async onBeforeTerminateApp(appInfo) {
@@ -109,10 +113,6 @@ class ArtifactsManager {
 
   async onBeforeLaunchApp(appLaunchInfo) {
     await this._callPlugins('onBeforeLaunchApp', appLaunchInfo);
-
-    if (!this._beforeAllCalled) {
-      await this.onBeforeAll();
-    }
   }
 
   async onLaunchApp(appLaunchInfo) {
