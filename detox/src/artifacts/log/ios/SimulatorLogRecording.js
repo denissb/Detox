@@ -29,7 +29,6 @@ class SimulatorLogRecording extends Artifact {
 
     this._logContext = {
       fileHandle,
-      throttle: sleep(100),
       process: this._appleSimUtils.logStream({
         udid: this._udid,
         processImagePath: await this._getProcessImagePath(),
@@ -38,12 +37,13 @@ class SimulatorLogRecording extends Artifact {
         style: 'compact',
       }),
     };
+
+    await sleep(100);
   }
 
   async doStop() {
     if (this._logContext) {
-      const { fileHandle, throttle, process } = this._logContext;
-      await throttle;
+      const { fileHandle, process } = this._logContext;
       await exec.interruptProcess(process, 'SIGTERM');
       await fs.close(fileHandle);
       this._logContext = null;
