@@ -17,7 +17,6 @@ class ArtifactsManager {
     this._pathBuilder = pathBuilder || new ArtifactPathBuilder({
       artifactsRootDir: argparse.getArgValue('artifacts-location') || 'artifacts',
     });
-    this._beforeAllCalled = false;
   }
 
   _instantitateArtifactPlugin(pluginFactory) {
@@ -89,10 +88,6 @@ class ArtifactsManager {
 
   async onBootDevice(deviceInfo) {
     await this._callPlugins('onBootDevice', deviceInfo);
-
-    if (!this._beforeAllCalled) {
-      await this.onBeforeAll();
-    }
   }
 
   async onBeforeTerminateApp(appInfo) {
@@ -124,7 +119,6 @@ class ArtifactsManager {
   }
 
   async onBeforeAll() {
-    this._beforeAllCalled = true;
     await this._callPlugins('onBeforeAll');
   }
 
